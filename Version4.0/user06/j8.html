@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JQuery 8</title>
+    <style>
+        body {
+            width: 600px;
+            margin: auto;
+            font-family: sans-serif;
+        }
+
+        #contact {
+            background: #e3e3e3;
+            padding: 1em 2em;
+            position: relative;
+        }
+
+        .js #contact {
+            position: absolute;
+            top: 0;
+            width: inherit;
+            display: none;
+        }
+
+        #contact h2 {
+            margin-top: 0;
+        }
+
+        #contact ul {
+            padding: 0;
+        }
+
+        #contact li {
+            list-style: none;
+            margin-bottom: 1em;
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-weight: bold;
+            font-family: sans-serif;
+            cursor: pointer;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            line-height: 2em;
+        }
+
+        input[type=submit] {
+            width: auto;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+    <article>
+        <h1>My Awesome Post</h1>
+        <p>
+            Lorem ipsum dolor sit amet. Id nulla voluptatem cum cumque magnam id dignissimos labore sit magni itaque?
+            Qui
+            officiis delectus id eligendi tempora eos quidem consectetur et laudantium impedit. Ea ducimus reprehenderit
+            et
+            voluptatibus nulla aut nisi pariatur eum sunt totam hic autem neque quo quia quibusdam.
+        </p>
+        <p>
+            Est molestias ipsam sit libero voluptatem hic atque numquam. Qui rerum fuga aut reiciendis pariatur est
+            dolorum
+            alias rem voluptatem culpa. Et placeat dicta et voluptatum possimus est consequatur illo et quia quidem ut
+            vitae
+            deleniti in iste enim.
+        </p>
+        <p>
+            Ex illo illo aut voluptatem reprehenderit aut velit voluptas. Est voluptas unde ut rerum perspiciatis ad
+            velit
+            officiis sed galisum alias qui quos dolores et soluta corporis et voluptas ipsa. Ut reprehenderit Quis ad
+            velit
+            rerum est galisum magnam et amet omnis hic labore neque aut internos magnam sit recusandae consequatur.
+        </p>
+    </article>
+</body>
+
+<div id="contact">
+    <h2>Contact Me</h2>
+    <form action="#">
+        <ul>
+            <li>
+                <label for="name">Name: </label>
+                <input name="name" id="name">
+            </li>
+            <li>
+                <label for="email">Email Address: </label>
+                <input name="email" id="email">
+            </li>
+            <li>
+                <label for="comments">What's good?</label>
+                <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+            </li>
+            <li>
+                <input type="submit" value="Submit">
+            </li>
+        </ul>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+    (function () {
+        $('html').addClass('js');
+        var contactForm = {
+            container: $('#contact'),
+            config: {
+                effect: 'slideToggle',
+                speed: 500
+            },
+
+            init: function (config) {
+                $.extend(contactForm.config, config);
+                $('<button></button>', {
+                    text: 'Contact Me'
+                })
+                    .insertAfter('article')
+                    .on('click', this.show);
+            },
+
+            show: function (e) {
+                var cf = contactForm,
+                    container = cf.container,
+                    config = cf.config;
+
+                e.preventDefault();
+
+                if (container.is('hidden')) {
+                    container[config.effect](config.speed);
+                    cf.close.call(container);
+                }
+            },
+            
+            close: function () {
+                var $this = $(this);
+
+                $('<span class="close">X</span>')
+                    .appendTo(this)
+                    .on('click', function () {
+                        $this[contactForm.config.effect](contactForm.config.speed);
+                    });
+            }
+        };
+        contactForm.init({
+            effect: 'fadeToggle',
+            speed: 2000
+        });
+    })();
+</script>
+
+
+</html>
